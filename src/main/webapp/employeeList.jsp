@@ -86,12 +86,16 @@ aside li {
 aside button {
 	background-color: transparent;
 	border: none;
-	color: #fff;
 	padding: 10px 0;
 	width: 100%; /* Full-width buttons */
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 	font-size: 16px;
+}
+
+aside a {
+	color: white;
+	text-decoration: none;
 }
 
 aside button:hover {
@@ -398,13 +402,12 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 						name="manager" id="managerUpdate" value="<%=emp.getManager()%>">
 					<button class="add-button" onclick="setFormUpdate()">
 						Update</button>
-					<button class="add-button">Delete</button>
-					<button onclick="setFormDelete()" class="cancel-button"
-						id="closeEditPopup">Close</button>
+					<button onclick="setFormDelete()" class="add-button">Delete</button>
 
 
 
 				</form>
+				<button class="cancel-button" id="closeEditPopup">Close</button>
 			</div>
 		</div>
 

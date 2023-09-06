@@ -70,8 +70,6 @@ public class EmployeeServlet1 extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		/**
-		 * 
-		 * 
 		 * Writing in do post method to add employee
 		 */
 
