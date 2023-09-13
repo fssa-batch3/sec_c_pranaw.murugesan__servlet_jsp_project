@@ -1,9 +1,9 @@
 package com.fssa.leavemanagement.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,46 +11,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.leavemanagement.exceptions.DAOException;
-import com.fssa.leavemanagement.exceptions.InvalidEmployeeException;
-import com.fssa.leavemanagement.model.Employee;
 import com.fssa.leavemanagement.service.EmployeeService;
 
 /**
- * Servlet implementation class UpdateServlet
+ * Servlet implementation class DeleteServlet
  */
-@WebServlet("/UpdateServlet")
-public class UpdateServlet extends HttpServlet {
+@WebServlet("/DeleteServlet")
+public class DeleteEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public UpdateServlet() {
+	public DeleteEmployeeServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		RequestDispatcher rd = request.getRequestDispatcher("./employeeList.jsp");
+		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		PrintWriter out = response.getWriter();
-//		out.println("helloworld");
-		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		String manager = request.getParameter("manager");
-		String password = request.getParameter("password");
-		Employee employee = new Employee();
-		employee.setManager(manager);
-		employee.setEmail(email);
-		employee.setName(name);
-		employee.setPassword(password);
-
 		try {
-			EmployeeService.updateEmployee(employee);
-
-		} catch (InvalidEmployeeException | DAOException | SQLException e) {
+			EmployeeService.deleteEmployee(email);
+			doGet(request, response);
+		} catch (SQLException | DAOException e) {
 			e.printStackTrace();
-		} 
+		}
 		doGet(request, response);
 	}
 

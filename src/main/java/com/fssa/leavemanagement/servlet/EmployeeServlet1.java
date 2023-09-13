@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.leavemanagement.exceptions.DAOException;
 import com.fssa.leavemanagement.exceptions.InvalidEmployeeException;
+import com.fssa.leavemanagement.exceptions.InvalidRoleException;
 import com.fssa.leavemanagement.model.Employee;
+import com.fssa.leavemanagement.model.Role;
 import com.fssa.leavemanagement.service.EmployeeService;
+import com.fssa.leavemanagement.service.RoleService;
 
 /**
  * Servlet implementation class EmployeeServlet1
@@ -34,16 +37,18 @@ public class EmployeeServlet1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher rd = null;
-
+		
 		String action = request.getParameter("action");
 
 		try {
+			List<Role> roles = RoleService.getAllRole();
+			request.setAttribute("ROLE_LIST", roles);
 			List<Employee> employeeList = EmployeeService.getAllEmployee();
 
 			request.setAttribute("EMPLOYEE_LIST", employeeList);
 			request.setAttribute("sNo", 0);
 
-		} catch (DAOException | SQLException e) {
+		} catch (DAOException | SQLException | InvalidRoleException e) {
 			e.printStackTrace();
 		}
 

@@ -22,12 +22,6 @@
 	box-sizing: border-box;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
 body {
 	font-family: "Roboto", sans-serif;
 }
@@ -166,8 +160,7 @@ form label {
 	font-weight: bold;
 }
 
-form input[type="text"], form input[type="email"], form input[type="password"],
-	form select {
+form input, form select {
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 10px;
@@ -287,6 +280,8 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 			<button class="add-button" id="addEmployeeButton">Add
 				Employee</button>
 		</div>
+
+
 		<div id="addPopupContainer">
 			<div id="popup">
 				<form action="EmployeeServlet1" method="post">
@@ -294,14 +289,37 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 						id="name" required> <label for="email">Email:</label> <input
 						type="email" name="email" id="email" required> <label
 						for="password">Password:</label> <input type="password"
-						name="password" id="password" required> <label
-						for="manager">Manager:</label> <input type="text" name="manager"
-						id="manager"> <label for="cars">Role:</label> <select
-						name="role" id="role">
-						<option value="CEO">CEO</option>
-						<option value="HR">HR</option>
-						<option value="MANAGER">MANAGER</option>
-						<option value="TEAMLEAD">TEAMLEAD</option>
+						name="password" id="password"
+						pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+						title="password must contain Uppercase,lowercase, 8 characters"
+						required> <label for="manager">Manager:</label> <input
+						list="brow" name="manager" type="email">
+					<datalist id="brow">
+						<%
+						List<Employee> employeeList = (List<Employee>) request.getAttribute("EMPLOYEE_LIST");
+						List<Role> roleList = (List<Role>) request.getAttribute("ROLE_LIST");
+						if (employeeList != null) {
+							for (Employee e : employeeList) {
+						%>
+
+						<option value="<%=e.getEmail()%>">
+
+							<%
+							}
+							}
+							%>
+						
+					</datalist>
+					<label for="cars">Role:</label> <select name="role" id="role">
+						<%
+						if (roleList != null) {
+							for (Role e : roleList) {
+						%>
+						<option value="<%=e.getName()%>"><%=e.getName()%></option>
+						<%
+						}
+						}
+						%>
 					</select>
 					<button type="submit" class="submit-button">Add</button>
 				</form>
@@ -324,8 +342,6 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 			</thead>
 			<tbody>
 				<%
-				List<Employee> employeeList = (List<Employee>) request.getAttribute("EMPLOYEE_LIST");
-
 				if (employeeList != null) {
 					for (Employee e : employeeList) {
 				%>
@@ -400,6 +416,22 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 						name="password" id="passwordUpdate" value="<%=emp.getPassword()%>">
 					<label for="manager">Manager:</label> <input type="text"
 						name="manager" id="managerUpdate" value="<%=emp.getManager()%>">
+					<input list="brow" name="manager" value="<%=emp.getManager()%>"
+						type="email">
+					<datalist id="brow">
+						<%
+						if (employeeList != null) {
+							for (Employee e : employeeList) {
+						%>
+
+						<option value="<%=e.getEmail()%>">
+
+							<%
+							}
+							}
+							%>
+						
+					</datalist>
 					<button class="add-button" onclick="setFormUpdate()">
 						Update</button>
 					<button onclick="setFormDelete()" class="add-button">Delete</button>

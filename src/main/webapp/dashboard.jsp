@@ -113,6 +113,9 @@ body {
 	overflow-x: hidden;
 	font-family: "Roboto", sans-serif;
 }
+a{
+color: white;
+}
 
 .bars {
 	width: 110%;
