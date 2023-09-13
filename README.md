@@ -20,11 +20,6 @@ Employee leave management can be a complex and time-consuming task for HR depart
 ## Data Privacy and Security
 We understand the importance of data privacy and security in managing sensitive employee information. The Leave Management Application employs industry-standard encryption and secure data storage practices to protect user data from unauthorized access.
 
-## DB Design
-- [Sql Script](https://github.com/fssa-batch3/sec_c_pranaw.murugesan__corejava_project_2/blob/main/src/main/sql/ProjectQueries.sql)
-
-![image](https://github.com/fssa-batch3/sec_c_pranaw.murugesan__corejava_project_2/assets/85377859/ce720e47-0141-49ff-866e-893a400484c3)
-
 ## Technologies Used
 
 The Leave Management Application is built using a variety of technologies and tools to ensure a robust and efficient system. The key technologies used in developing the application are as follows:
