@@ -3,31 +3,32 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>EmployeeRoleServlet</servlet-name>
-  	<display-name>EmployeeRoleServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.fssa.leavemanagement.servlet.EmployeeRoleServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>EmployeeServlet</servlet-name>
-  	<display-name>EmployeeServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.fssa.leavemanagement.servlet.EmployeeServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>LeaveTypeServlet</servlet-name>
-  	<display-name>LeaveTypeServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.fssa.leavemanagement.servlet.LeaveTypeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>EmployeeRoleServlet</servlet-name>
-  	<url-pattern>/EmployeeRoleServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>EmployeeServlet</servlet-name>
-  	<url-pattern>/EmployeeServlet</url-pattern>
-  </servlet-mapping>
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>EmployeeRoleServlet</servlet-name>
+		<display-name>EmployeeRoleServlet</display-name>
+		<description></description>
+		<servlet-class>com.fssa.leavemanagement.servlet.EmployeeRoleServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<display-name>EmployeeServlet</display-name>
+		<description></description>
+		<servlet-class>com.fssa.leavemanagement.servlet.EmployeeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LeaveTypeServlet</servlet-name>
+		<display-name>LeaveTypeServlet</display-name>
+		<description></description>
+		<servlet-class>com.fssa.leavemanagement.servlet.LeaveTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeRoleServlet</servlet-name>
+		<url-pattern>/EmployeeRoleServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<url-pattern>/EmployeeServlet</url-pattern>
+	</servlet-mapping>
+
 </web-app>

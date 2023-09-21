@@ -1,5 +1,10 @@
+<%@page
+	import="com.fssa.leavemanagement.service.EmployeeLeaveDetailsService"%>
+<%@page import="com.fssa.leavemanagement.service.EmployeeService"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.fssa.leavemanagement.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,13 +12,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Leave</title>
-<link rel="stylesheet" href="./assets/css/dashboard.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css"
 	rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="./asserts/css/header.css">
+<link rel="stylesheet" href="./asserts/css/employeeHeader.css">
+<link rel="stylesheet" href="./asserts/css/dashboard.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap"
 	rel="stylesheet">
@@ -21,31 +26,37 @@
 </head>
 
 <body>
-	<header>
-		<div>
-			<h1>Fresh Leave</h1>
-		</div>
-		<div>
-			<button class="signout">sign out</button>
-		</div>
-	</header>
-	<aside>
-		<ul>
-			<button type="button" class="btn btn-light">
-				<a href="#">Dashboard</a>
-			</button>
-			<button type="button" class="btn btn-light">
-				<a href="./assets/pages/apply.html">Apply</a>
-			</button>
-			<button type="button" class="btn btn-light">Holidays</button>
-			<button type="button" class="btn btn-light">Policies</button>
-			<button type="button" class="btn btn-light">Requests</button>
-		</ul>
-	</aside>
+	<jsp:include page="employeeHeader.jsp"></jsp:include>
+	<%
+	Employee e = null;
+	String email = (String) session.getAttribute("loggedInEmail");
+	if (email != null) {
+		e = EmployeeService.findEmployeeByEmail(email);
+	} else {
+		// Redirect the user to the login page if not logged in
+		response.sendRedirect("login.jsp");
+	}
+	%>
+
 	<main>
+
+		<%
+		if (e != null && e.getName() != null) {
+		%>
+		<h1 id="displayName">
+			Hi
+			<%=e.getName()%>
+			!!
+		</h1>
+		<%
+		}
+		%>
+
 		<div class="leaveInsights">
 			<h1>Leave Insights</h1>
-			<button>Apply</button>
+			<button>
+				<a href="apply.jsp">Apply</a>
+			</button>
 		</div>
 		<div class="barsTitles">
 			<h1>Leave Statistics</h1>
@@ -68,124 +79,30 @@
 					<th>Status</th>
 					<th></th>
 				</tr>
+				<%
+				List<EmployeeLeaveDetails> eldArray = EmployeeLeaveDetailsService.getLeaveRequestsByEmail(email);
+				if (eldArray != null) {
+					for (EmployeeLeaveDetails leaveDetail : eldArray) {
+				%>
 				<tr>
-					<td>Casual Leave</td>
-					<td>2022/06/02</td>
-					<td>2022/06/06</td>
-					<td>Pending</td>
+					<td><%=leaveDetail.getLeaveType()%></td>
+					<td><%=leaveDetail.getStartDate()%></td>
+					<td><%=leaveDetail.getEndDate()%></td>
+					<td><%=leaveDetail.getStatus()%></td>
 					<td>view all</td>
 				</tr>
-				<tr>
-					<td>Casual Leave</td>
-					<td>2022/06/02</td>
-					<td>2022/06/06</td>
-					<td>Pending</td>
-					<td>view all</td>
-				</tr>
-				<tr>
-					<td>Casual Leave</td>
-					<td>2022/06/02</td>
-					<td>2022/06/06</td>
-					<td>Pending</td>
-					<td>view all</td>
-				</tr>
-				<tr>
-					<td>Casual Leave</td>
-					<td>2022/06/02</td>
-					<td>2022/06/06</td>
-					<td>Pending</td>
-					<td>view all</td>
-				</tr>
-				<tr>
-					<td>Casual Leave</td>
-					<td>2022/06/02</td>
-					<td>2022/06/06</td>
-					<td>Pending</td>
-					<td>view all</td>
-				</tr>
+				<%
+				}
+				}
+				%>
+
+
+
 			</table>
 		</div>
 
 	</main>
-	<style>
-body {
-	background-color: #f9f7f7;
-	overflow-x: hidden;
-	font-family: "Roboto", sans-serif;
-}
-a{
-color: white;
-}
 
-.bars {
-	width: 110%;
-	height: 50vh;
-	display: grid;
-	grid-template-areas: 'boxchart doughnutChart';
-}
-
-.bars>canvas {
-	margin-right: 10%;
-	margin-left: 10%;
-	/* background-color: white; */
-	/* width: 210px; */
-}
-
-#myChart {
-	grid-area: boxchart;
-}
-
-#doughnutChart {
-	grid-area: doughnutChart;
-}
-
-table {
-	margin-top: 2%;
-	width: 150%;
-}
-
-th, td {
-	padding: 17px;
-	font-size: large;
-	border-bottom: 2px solid black;
-	margin: 0px;
-}
-
-.pendingReqTitle {
-	margin-top: 5%;
-	margin-left: 1%;
-	color: #424874;
-}
-
-.pendingReq {
-	margin-left: 10%;
-	width: 50%;
-}
-
-.barsTitles {
-	display: flex;
-	justify-content: space-around;
-	color: #424874;
-}
-
-.leaveInsights {
-	display: flex;
-	justify-content: space-between;
-	background-color: white;
-	margin-bottom: 1%;
-	padding: 1%;
-}
-
-.leaveInsights>h1 {
-	margin-left: 5%;
-}
-
-.leaveInsights>button {
-	margin-right: 5%;
-	padding-left: 1%;
-	padding-right: 1%;
-}
-</style>
 
 
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>

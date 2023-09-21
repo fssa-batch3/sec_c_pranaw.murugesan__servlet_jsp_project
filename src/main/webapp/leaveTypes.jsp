@@ -9,29 +9,15 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="./asserts/css/admin.css">
 <link rel="stylesheet" href="./asserts/css/header.css">
+<style>
+a {
+	color: white;
+	text-decoration: none;
+}
+</style>
 </head>
 <body>
-	<header>
-		<div>
-			<h1>Fresh Leave</h1>
-		</div>
-		<div>
-			<button class="signout">sign out</button>
-		</div>
-	</header>
-	<aside>
-		<ul>
-			<button type="button" class="btn btn-light">
-				<a href="EmployeeServlet1">Employees</a>
-			</button>
-			<button type="button" class="btn btn-light">
-				<a href="EmployeeRoleServlet1">Roles</a>
-			</button>
-			<button type="button" class="btn btn-light">
-				<a href="leaveTypes.jsp">Leave Types</a>
-			</button>
-		</ul>
-	</aside>
+	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 		<h1 class="titleList">Leave List</h1>
 		<table class="styled-table">
@@ -44,7 +30,7 @@
 			</thead>
 			<tbody>
 				<%
-				
+
 				%>
 				<tr>
 					<td>1</td>
@@ -65,6 +51,5 @@
 			</tbody>
 		</table>
 	</main>
-	<footer> </footer>
 </body>
 </html>

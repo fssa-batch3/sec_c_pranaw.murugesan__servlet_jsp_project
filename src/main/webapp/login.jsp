@@ -32,7 +32,9 @@
 
 			<label for="email">Email:</label> <input type="email" id="email"
 				name="email" required> <label for="password">Password:</label>
-			<input type="password" id="password" name="password" required>
+			<input type="password" id="password" name="password" required
+				pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+				title="password must contain Uppercase,lowercase, 8 characters">
 			<button type="submit">Login</button>
 		</form>
 	</div>

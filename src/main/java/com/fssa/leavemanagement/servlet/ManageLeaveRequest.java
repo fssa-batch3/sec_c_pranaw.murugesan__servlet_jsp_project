@@ -1,7 +1,6 @@
 package com.fssa.leavemanagement.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -11,18 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.leavemanagement.exceptions.DAOException;
-import com.fssa.leavemanagement.exceptions.InvalidEmployeeException;
-import com.fssa.leavemanagement.model.Employee;
+import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
 import com.fssa.leavemanagement.service.EmployeeService;
 
 /**
- * Servlet implementation class UpdateServlet
+ * Servlet implementation class ManageLeaveRequest
  */
-@WebServlet("/UpdateServlet")
-public class UpdateServlet extends HttpServlet {
+@WebServlet("/ManageLeaveRequest")
+public class ManageLeaveRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public UpdateServlet() {
+	public ManageLeaveRequest() {
 		super();
 	}
 
@@ -33,22 +31,16 @@ public class UpdateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String manager = request.getParameter("manager");
-		String password = request.getParameter("password");
-		Employee employee = new Employee();
-		employee.setManager(manager);
-		employee.setEmail(email);
-		employee.setName(name);
-		employee.setPassword(password);
-
+//		int id = Integer.parseInt(request.getParameter("id"));
+		String status = request.getParameter("status");
+		String comments = request.getParameter("comments");
 		try {
-			EmployeeService.updateEmployee(employee);
+			EmployeeLeaveDetailsService.updateLeaveRequest(status, 10, comments);
 
-		} catch (InvalidEmployeeException | DAOException | SQLException e) {
+		} catch (SQLException | DAOException e) {
 			e.printStackTrace();
-		} 
+		}
+		response.sendRedirect("LeaveRequest");
 		doGet(request, response);
 	}
 

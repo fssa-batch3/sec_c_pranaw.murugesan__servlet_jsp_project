@@ -9,278 +9,21 @@
 <meta charset="ISO-8859-1">
 <title>Fresh Leave</title>
 <link rel="stylesheet" href="./asserts/css/header.css">
+<link rel="stylesheet" href="./asserts/css/employeeList.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap"
 	rel="stylesheet">
-
-<style>
-/* Main Content Styles */
-/* Reset some default styles */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-body {
-	font-family: "Roboto", sans-serif;
-}
-
-/* Header Styles */
-header {
-	display: flex;
-	justify-content: space-between;
-	background-color: #007BFF;
-	color: #fff;
-	padding: 20px 0;
-	text-align: center;
-}
-
-header h1 {
-	margin-left: 20px;
-	font-family: 'Roboto', sans-serif;
-}
-
-/* Signout button in the header */
-.signout {
-	background-color: transparent;
-	border: none;
-	color: #fff;
-	cursor: pointer;
-	font-size: 16px;
-	margin-right: 30px;
-}
-
-header .signout:hover {
-	text-decoration: none;
-}
-/* Sidebar Styles */
-aside {
-	background-color: #333;
-	color: #fff;
-	min-height: 100vh;
-	position: absolute;
-	width: 13%;
-	padding: 20px 0;
-	text-align: center;
-}
-
-aside ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-aside li {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	padding-top: 10%;
-}
-
-aside button {
-	background-color: transparent;
-	border: none;
-	padding: 10px 0;
-	width: 100%; /* Full-width buttons */
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	font-size: 16px;
-}
-
-aside a {
-	color: white;
-	text-decoration: none;
-}
-
-aside button:hover {
-	background-color: #555;
-}
-
-.signout {
-	font-size: larger;
-	background-color: transparent;
-	border: none;
-}
-
-main {
-	margin-left: 14%;
-	margin-right: 2%;
-	padding-top: 1%;
-}
-
-.addEmployeeDiv {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
-}
-
-.titleList {
-	font-size: 24px;
-	color: #333;
-}
-
-.add-button {
-	background-color: #007BFF;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-	font-size: 16px;
-}
-
-.add-button:hover {
-	background-color: #0056b3;
-}
-
-#addPopupContainer {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1;
-}
-
-#popup {
-	background-color: #fff;
-	padding: 30px;
-	border-radius: 5px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-form label {
-	display: block;
-	margin-bottom: 5px;
-	font-weight: bold;
-}
-
-form input, form select {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-}
-
-.submit-button {
-	background-color: #007BFF;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-	font-size: 16px;
-}
-/* Edit Popup Styles */
-.edit-popup {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 2;
-}
-
-.edit-popup-content {
-	background-color: #fff;
-	width: 70%;
-	max-width: 600px;
-	margin: 10% auto;
-	padding: 20px;
-	border-radius: 5px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.cancel-button {
-	margin-top: 10px;
-	display: block; /* Ensure the button takes up the full width */
-	width: 100%; /* Make the button full-width */
-	background-color: #ccc;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-	font-size: 16px;
-	margin-top: 10px;
-}
-
-.cancel-button:hover {
-	background-color: #999;
-}
-
-.styled-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
-}
-
-.styled-table th, .styled-table td {
-	padding: 12px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
-}
-
-.styled-table th {
-	background-color: #007BFF;
-	color: #fff;
-}
-
-.edit-button {
-	background-color: #007BFF;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-	font-size: 16px;
-}
-
-.edit-button:hover {
-	background-color: #0056b3;
-}
-</style>
-
 </head>
 <body>
 
 
-	<header>
-		<div>
-			<h1>Fresh Leave</h1>
-		</div>
-		<div>
-			<button class="signout">sign out</button>
-		</div>
-	</header>
-	<aside>
-		<ul>
-			<button type="button" class="btn btn-light">
-				<a href="EmployeeServlet1">Employees</a>
-			</button>
-			<button type="button" class="btn btn-light">
-				<a href="EmployeeRoleServlet1">Roles</a>
-			</button>
-			<button type="button" class="btn btn-light">
-				<a href="leaveTypes.jsp">Leave Types</a>
-			</button>
-		</ul>
-	</aside>
+	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 		<div class="addEmployeeDiv">
 			<h1 class="titleList">Employee List</h1>
 			<button class="add-button" id="addEmployeeButton">Add
 				Employee</button>
 		</div>
-
 
 		<div id="addPopupContainer">
 			<div id="popup">
@@ -289,11 +32,9 @@ form input, form select {
 						id="name" required> <label for="email">Email:</label> <input
 						type="email" name="email" id="email" required> <label
 						for="password">Password:</label> <input type="password"
-						name="password" id="password"
-						pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-						title="password must contain Uppercase,lowercase, 8 characters"
-						required> <label for="manager">Manager:</label> <input
-						list="brow" name="manager" type="email">
+						name="password" id="password" required> <label
+						for="manager">Manager:</label> <input list="brow" name="manager"
+						type="email">
 					<datalist id="brow">
 						<%
 						List<Employee> employeeList = (List<Employee>) request.getAttribute("EMPLOYEE_LIST");
@@ -310,7 +51,7 @@ form input, form select {
 							%>
 						
 					</datalist>
-					<label for="cars">Role:</label> <select name="role" id="role">
+					<label for="role">Role:</label> <select name="role" id="role">
 						<%
 						if (roleList != null) {
 							for (Role e : roleList) {
@@ -393,8 +134,9 @@ form input, form select {
 
 					<%
 					}
-					}
+					} 
 					%>
+					
 				
 			</tbody>
 		</table>
@@ -414,9 +156,8 @@ form input, form select {
 						id="emailUpdate" value="<%=emp.getEmail()%>"> <label
 						for="password">Password:</label> <input type="password"
 						name="password" id="passwordUpdate" value="<%=emp.getPassword()%>">
-					<label for="manager">Manager:</label> <input type="text"
-						name="manager" id="managerUpdate" value="<%=emp.getManager()%>">
-					<input list="brow" name="manager" value="<%=emp.getManager()%>"
+					<label for="manager">Manager:</label> <input list="brow"
+						id="managerUpdate" name="manager" value="<%=emp.getManager()%>"
 						type="email">
 					<datalist id="brow">
 						<%
