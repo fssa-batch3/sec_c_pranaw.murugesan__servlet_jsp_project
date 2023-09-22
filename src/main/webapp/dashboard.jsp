@@ -13,12 +13,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Leave</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css"
-	rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="./asserts/css/employeeHeader.css">
-<link rel="stylesheet" href="./asserts/css/dashboard.css">
+<link rel="stylesheet" href="./assets/css/employeeHeader.css">
+<link rel="stylesheet" href="./assets/css/dashboard.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap"
 	rel="stylesheet">
@@ -28,6 +26,7 @@
 <body>
 	<jsp:include page="employeeHeader.jsp"></jsp:include>
 	<%
+	EmployeeLeaveBalance elb = (EmployeeLeaveBalance) request.getAttribute("leaveBalance");
 	Employee e = null;
 	String email = (String) session.getAttribute("loggedInEmail");
 	if (email != null) {
@@ -54,19 +53,19 @@
 
 		<div class="leaveInsights">
 			<h1>Leave Insights</h1>
-			<button>
+			<button class="apply-button">
 				<a href="apply.jsp">Apply</a>
 			</button>
 		</div>
 		<div class="barsTitles">
-			<h1>Leave Statistics</h1>
-			<h1>Batches</h1>
+			<h1>Leave Balance</h1>
+			<h1>Leave Balance</h1>
 		</div>
 		<div class="bars">
 			<canvas id="myChart"
 				style="display: block; width: 55px; height: 55px;"></canvas>
 			<canvas id="doughnutChart"
-				style="display: block; width: 55px; height: 55px;"></canvas>
+				style="display: block; width: 15px; height: 15px;"></canvas>
 		</div>
 
 		<div class="pendingReq">
@@ -80,9 +79,12 @@
 					<th></th>
 				</tr>
 				<%
-				List<EmployeeLeaveDetails> eldArray = EmployeeLeaveDetailsService.getLeaveRequestsByEmail(email);
-				if (eldArray != null) {
-					for (EmployeeLeaveDetails leaveDetail : eldArray) {
+				List<EmployeeLeaveDetails> eldArray = (List<EmployeeLeaveDetails>) request.getAttribute("leaveRequest");
+				if (!eldArray.isEmpty() && eldArray != null) {
+				%>
+
+				<%
+				for (EmployeeLeaveDetails leaveDetail : eldArray) {
 				%>
 				<tr>
 					<td><%=leaveDetail.getLeaveType()%></td>
@@ -93,13 +95,20 @@
 				</tr>
 				<%
 				}
-				}
 				%>
-
-
-
 			</table>
 		</div>
+		<%
+		} else {
+		%>
+		<h1 class="pendingReqTitle">No Pending Leave Requests</h1>
+		<%
+		}
+		%>
+
+
+
+
 
 	</main>
 
@@ -113,10 +122,16 @@
 		new Chart(ctx, {
 			type : 'bar',
 			data : {
-				labels : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+				labels : [ 'Casual', 'Sick', 'Earned' ],
 				datasets : [ {
 					label : '# of Votes',
-					data : [ 12, 19, 3, 5, 2, 3 ],
+					data : [
+	<%=elb.getCasualLeaveBalance()%>
+		,
+	<%=elb.getSickLeaveBalance()%>
+		,
+	<%=elb.getEarnedLeaveBalance()%>
+		, ],
 					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 							'rgba(255, 159, 64, 0.2)',
 							'rgba(255, 205, 86, 0.2)',
@@ -143,8 +158,15 @@
 			data : {
 				labels : [ 'Casual', 'Sick', 'Earned' ],
 				datasets : [ {
-					label : 'My First Dataset',
-					data : [ 10, 5, 10 ],
+					label : 'Leave Balance',
+
+					data : [
+	<%=elb.getCasualLeaveBalance()%>
+		,
+	<%=elb.getSickLeaveBalance()%>
+		,
+	<%=elb.getEarnedLeaveBalance()%>
+		],
 					backgroundColor : [ 'rgb(255, 99, 132)',
 							'rgb(54, 162, 235)', 'rgb(255, 205, 86)' ],
 					hoverOffset : 4

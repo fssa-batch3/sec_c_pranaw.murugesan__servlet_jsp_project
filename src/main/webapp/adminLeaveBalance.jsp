@@ -7,8 +7,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Leave Balance</title>
-<link rel="stylesheet" href="./asserts/css/header.css">
-<link rel="stylesheet" href="./asserts/css/admin.css">
+<link rel="stylesheet" href="./assets/css/header.css">
+<link rel="stylesheet" href="./assets/css/admin.css">
 <style>
 a {
 	color: white;

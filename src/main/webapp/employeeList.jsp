@@ -8,8 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Fresh Leave</title>
-<link rel="stylesheet" href="./asserts/css/header.css">
-<link rel="stylesheet" href="./asserts/css/employeeList.css">
+<link rel="stylesheet" href="./assets/css/header.css">
+<link rel="stylesheet" href="./assets/css/employeeList.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap"
 	rel="stylesheet">
@@ -19,6 +19,14 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
+		<%
+		String error = (String) request.getAttribute("error");
+		if (error != null) {
+		%>
+		<h2 style="color: red;"><%=error%></h2>
+		<%
+		}
+		%>
 		<div class="addEmployeeDiv">
 			<h1 class="titleList">Employee List</h1>
 			<button class="add-button" id="addEmployeeButton">Add
@@ -33,9 +41,8 @@
 						type="email" name="email" id="email" required> <label
 						for="password">Password:</label> <input type="password"
 						name="password" id="password" required> <label
-						for="manager">Manager:</label> <input list="brow" name="manager"
-						type="email">
-					<datalist id="brow">
+						for="manager">Manager:</label> <select name="manager" id="manager">
+						<option value="">Select Manager</option>
 						<%
 						List<Employee> employeeList = (List<Employee>) request.getAttribute("EMPLOYEE_LIST");
 						List<Role> roleList = (List<Role>) request.getAttribute("ROLE_LIST");
@@ -43,15 +50,14 @@
 							for (Employee e : employeeList) {
 						%>
 
-						<option value="<%=e.getEmail()%>">
+						<option value="<%=e.getEmail()%>"><%=e.getEmail()%></option>
 
-							<%
-							}
-							}
-							%>
-						
-					</datalist>
-					<label for="role">Role:</label> <select name="role" id="role">
+						<%
+						}
+						}
+						%>
+					</select> <label for="role">Role:</label> <select name="role" id="role">
+
 						<%
 						if (roleList != null) {
 							for (Role e : roleList) {
@@ -134,9 +140,8 @@
 
 					<%
 					}
-					} 
+					}
 					%>
-					
 				
 			</tbody>
 		</table>

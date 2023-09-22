@@ -7,8 +7,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./asserts/css/admin.css">
-<link rel="stylesheet" href="./asserts/css/header.css">
+<link rel="stylesheet" href="./assets/css/admin.css">
+<link rel="stylesheet" href="./assets/css/header.css">
 <style>
 a {
 	color: white;

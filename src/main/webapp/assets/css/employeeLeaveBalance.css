@@ -1,0 +1,28 @@
+@charset "ISO-8859-1";
+
+main {
+	padding-top: 100px;
+}
+
+.range-container {
+	width: 300px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.range {
+	width: 50%;
+	height: 20px;
+	background-color: #ccc;
+	position: relative;
+}
+
+.range-fill {
+	height: 100%;
+	background-color: #3498db;
+}
+
+.range-label {
+	text-align: center;
+	margin-top: 10px;
+}

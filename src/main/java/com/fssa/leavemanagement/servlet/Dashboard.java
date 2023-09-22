@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.fssa.leavemanagement.dao.EmployeeDao;
 import com.fssa.leavemanagement.exceptions.DAOException;
 import com.fssa.leavemanagement.exceptions.InvalidEmployeeException;
+import com.fssa.leavemanagement.model.EmployeeLeaveBalance;
 import com.fssa.leavemanagement.model.EmployeeLeaveDetails;
 import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
 import com.fssa.leavemanagement.service.EmployeeService;
@@ -38,9 +39,10 @@ public class Dashboard extends HttpServlet {
 			if (email == null) {
 				response.sendRedirect("login.jsp");
 			} else {
-
+				EmployeeLeaveBalance elb = EmployeeLeaveDetailsService.getLeaveBalanceByEmail(email);
+				request.setAttribute("leaveBalance", elb);
 				List<EmployeeLeaveDetails> eldArray = EmployeeLeaveDetailsService.getLeaveRequestsByEmail(email);
-				request.setAttribute("leaveReques", eldArray);
+				request.setAttribute("leaveRequest", eldArray);
 				RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
 				rd.forward(request, response);
 			}

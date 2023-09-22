@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.leavemanagement.exceptions.DAOException;
+import com.fssa.leavemanagement.exceptions.ValidatorException;
+import com.fssa.leavemanagement.model.EmployeeLeaveBalance;
+import com.fssa.leavemanagement.model.LeaveTypes;
 import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
-import com.fssa.leavemanagement.service.EmployeeService;
 
 /**
  * Servlet implementation class ManageLeaveRequest
@@ -31,13 +33,17 @@ public class ManageLeaveRequest extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		int employeeId = Integer.parseInt(request.getParameter("employeeId"));
 		String status = request.getParameter("status");
 		String comments = request.getParameter("comments");
+		String leaveType = request.getParameter("leaveType");
+		int noOfDays = Integer.parseInt(request.getParameter("noOfDays"));
+		LeaveTypes leave = LeaveTypes.valueOf(leaveType);
+		EmployeeLeaveBalance elb = EmployeeLeaveDetailsService.getLeaveBalanceByEmployeeId(employeeId);
 		try {
-			EmployeeLeaveDetailsService.updateLeaveRequest(status, 10, comments);
-
-		} catch (SQLException | DAOException e) {
+			EmployeeLeaveDetailsService.updateLeaveRequest(status, id, comments, elb, employeeId, leave, noOfDays);
+		} catch (SQLException | DAOException | ValidatorException e) {
 			e.printStackTrace();
 		}
 		response.sendRedirect("LeaveRequest");

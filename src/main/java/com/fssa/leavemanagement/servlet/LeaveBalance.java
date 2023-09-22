@@ -16,7 +16,7 @@ import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
 /**
  * Servlet implementation class LeaveBalance
  */
-@WebServlet("/LeaveBalance")
+@WebServlet("/LeaveBalance1")
 public class LeaveBalance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,14 +27,14 @@ public class LeaveBalance extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<EmployeeLeaveBalance> elb = EmployeeLeaveDetailsService.getAllLeaveBalance();
-		request.setAttribute("leaveBalance",elb);
+		request.setAttribute("leaveBalance", elb);
 		RequestDispatcher rd = request.getRequestDispatcher("adminLeaveBalance.jsp");
 		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		doGet(request, response);
 	}
 

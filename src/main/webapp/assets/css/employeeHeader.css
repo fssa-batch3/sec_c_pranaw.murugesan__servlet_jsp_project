@@ -1,0 +1,86 @@
+@charset "ISO-8859-1";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+}
+
+header {
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+	display: flex;
+	justify-content: space-between;
+	background-color: #007BFF;
+	color: #fff;
+	padding: 20px 0;
+	text-align: center;
+}
+
+header h1 {
+	margin-left: 20px;
+	font-family: 'Roboto', sans-serif;
+}
+
+aside {
+	height: 100%; /* Set the height to 100% of the parent container */
+	overflow-y: auto;
+	/* Add vertical scroll when content exceeds the height */
+	background-color: #333;
+	color: #fff;
+	width: 15%; /* Adjust the width as needed */
+	position: fixed;
+	/* Fixed position to stay in view while scrolling */
+	top: 0; /* Position it at the top */
+	left: 0; /* Position it on the left */
+}
+
+aside button {
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	padding: 10px 0;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	font-size: 16px;
+	margin-top: 10%;
+	text-align: left;
+	padding-left: 30px;
+}
+
+aside ul {
+	margin-top: 100px;
+}
+
+aside button:hover {
+	background-color: #555;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.signout {
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	margin-right: 30px;
+	font-size: larger;
+}
+
+header .signout:hover {
+	text-decoration: none;
+}
+
+main {
+	margin-left: 220px;
+	padding: 20px;
+}

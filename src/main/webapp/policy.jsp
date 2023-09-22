@@ -5,8 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Policy</title>
-<link rel="stylesheet" href="./asserts/css/employeeHeader.css">
-<link rel="stylesheet" href="./asserts/css/policy.css">
+<link rel="stylesheet" href="./assets/css/employeeHeader.css">
+<link rel="stylesheet" href="./assets/css/policy.css">
 <style>
 p, ul, li, h2 {
 	margin: 2.5%;

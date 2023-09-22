@@ -1,9 +1,11 @@
 package com.fssa.leavemanagement.servlet;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fssa.leavemanagement.dao.EmployeeDao;
 import com.fssa.leavemanagement.exceptions.DAOException;
+import com.fssa.leavemanagement.exceptions.ValidatorException;
 import com.fssa.leavemanagement.model.EmployeeLeaveDetails;
 import com.fssa.leavemanagement.model.LeaveTypes;
 import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
@@ -56,11 +59,14 @@ public class ApplyLeave extends HttpServlet {
 			eld.setNoOfDays(days);
 
 			EmployeeLeaveDetailsService.applyLeave(eld);
-			response.sendRedirect("apply.jsp");
-		} catch (SQLException | DAOException e) {
+			request.setAttribute("successMsg", "Applied Successfully");
+
+		} catch (SQLException | DAOException | ValidatorException e) {
+			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
-
+		RequestDispatcher rd = request.getRequestDispatcher("apply.jsp");
+		rd.forward(request, response);
 		doGet(request, response);
 	}
 

@@ -37,7 +37,7 @@ public class EmployeeServlet1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher rd = null;
-		
+
 		String action = request.getParameter("action");
 
 		try {
@@ -93,6 +93,7 @@ public class EmployeeServlet1 extends HttpServlet {
 			EmployeeService.addEmployee(employee, role);
 			doGet(request, response);
 		} catch (InvalidEmployeeException | DAOException | SQLException e) {
+			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		doGet(request, response);
