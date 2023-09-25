@@ -37,7 +37,7 @@ public class ApplyLeave extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String email = (String) session.getAttribute("loggedInEmail");
 		String leaveReason = request.getParameter("reason");
 		String leaveType = request.getParameter("leaveType");
@@ -45,8 +45,9 @@ public class ApplyLeave extends HttpServlet {
 		LocalDate startLocalDate = LocalDate.parse(startDate);
 		String endDate = request.getParameter("endDate");
 		LocalDate endLocalDate = LocalDate.parse(endDate);
-		String noOfDays = request.getParameter("noOfDays");
-		int days = Integer.parseInt(noOfDays);
+		String noOfDays = (String) request.getParameter("noOfDays");
+		double days = Double.parseDouble(noOfDays);
+
 
 		EmployeeLeaveDetails eld = new EmployeeLeaveDetails();
 		try {
@@ -58,7 +59,7 @@ public class ApplyLeave extends HttpServlet {
 			eld.setEndDate(endLocalDate);
 			eld.setNoOfDays(days);
 
-			EmployeeLeaveDetailsService.applyLeave(eld);
+			EmployeeLeaveDetailsService.applyLeave(eld, email);
 			request.setAttribute("successMsg", "Applied Successfully");
 
 		} catch (SQLException | DAOException | ValidatorException e) {

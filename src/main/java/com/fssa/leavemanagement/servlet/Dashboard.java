@@ -34,7 +34,7 @@ public class Dashboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			String email = (String) session.getAttribute("loggedInEmail");
 			if (email == null) {
 				response.sendRedirect("login.jsp");

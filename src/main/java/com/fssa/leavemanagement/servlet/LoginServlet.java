@@ -51,28 +51,25 @@ public class LoginServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			if (user != null) {
+			if (user != null && user.isStatus()) {
 				String hashedEnteredPassword = null;
 				try {
 					hashedEnteredPassword = EmployeeDao.hashPassword(enteredPassword);
+					if (hashedEnteredPassword.equals(user.getPassword())) {
+						// Passwords match; user is authenticated
+						session.setAttribute("loggedInEmail", enteredEmail);
+						response.sendRedirect("Dashboard");
+					} else {
+						// Passwords do not match; authentication failed
+						request.setAttribute(error, invalidUser);
+						request.getRequestDispatcher(loginRedirection).forward(request, response);
+					}
 				} catch (InvalidEmployeeException e) {
 					e.printStackTrace();
 				}
 
-				if (hashedEnteredPassword.equals(user.getPassword())) {
-					// Passwords match; user is authenticated
-					// Redirect to a protected resource or set a session attribute, etc.
-					session.setAttribute("loggedInEmail", enteredEmail);
-					response.sendRedirect("Dashboard");
-				} else {
-					// Passwords do not match; authentication failed
-					// Handle authentication failure (e.g., show an error message)
-					request.setAttribute(error, invalidUser);
-					request.getRequestDispatcher(loginRedirection).forward(request, response);
-				}
 			} else {
 				// User not found in the database; authentication failed
-				// Handle authentication failure (e.g., show an error message)
 				request.setAttribute(error, invalidUser);
 				request.getRequestDispatcher(loginRedirection).forward(request, response);
 			}
@@ -81,7 +78,8 @@ public class LoginServlet extends HttpServlet {
 			if ("admin@FRESH2023".equals(enteredPassword) && "admin@freshworks.com".equals(enteredEmail)) {
 
 				session.setAttribute("loggedInEmail", enteredEmail);
-				session.setMaxInactiveInterval(10);
+				int sNo = 0;
+				session.setAttribute("sNo", sNo);
 				RequestDispatcher rd = request.getRequestDispatcher("EmployeeServlet1");
 				rd.forward(request, response);
 			} else {

@@ -13,7 +13,7 @@
 	<div>
 		<button class="signout">
 
-			<a href="Logout">Logout<img src="./assets/img/logout.png"></a>
+			<a href="Logout"><img id="logoutIcon" src="./assets/img/logout.png"></a>
 		</button>
 	</div>
 </header>

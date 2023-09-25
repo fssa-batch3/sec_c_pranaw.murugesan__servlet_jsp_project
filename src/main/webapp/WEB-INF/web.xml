@@ -41,14 +41,12 @@
 		<url-pattern>/LeaveBalance</url-pattern>
 	</servlet-mapping>
 
-
 	<error-page>
 		<!-- <exception-type>java.lang.Exception</exception-type> For handling 
 			exceptions -->
 		<error-code>500</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>
-
 	<error-page>
 		<!-- <exception-type>java.lang.Exception</exception-type> For handling 
 			exceptions -->
@@ -79,34 +77,23 @@
 		<error-code>599</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>
-
 	<error-page>
-
 		<error-code>400</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>
-
 	<error-page>
-
 		<error-code>404</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>
-
 	<error-page>
-
 		<error-code>401</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>
-
 	<error-page>
-
 		<error-code>403</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>
-
-
 	<error-page>
-
 		<error-code>409</error-code> <!-- HTTP Error code Page Not found -->
 		<location>/pageNotFound.jsp</location>
 	</error-page>

@@ -2,6 +2,7 @@
 	import="com.fssa.leavemanagement.service.EmployeeLeaveDetailsService"%>
 <%@page import="com.fssa.leavemanagement.service.EmployeeService"%>
 <%@page import="java.util.*"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.fssa.leavemanagement.model.*"%>
@@ -17,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="./assets/css/employeeHeader.css">
 <link rel="stylesheet" href="./assets/css/dashboard.css">
+<link rel="stylesheet" href="./assets/css/calendar.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap"
 	rel="stylesheet">
@@ -59,16 +61,71 @@
 		</div>
 		<div class="barsTitles">
 			<h1>Leave Balance</h1>
-			<h1>Leave Balance</h1>
+			<h1>Calendar</h1>
 		</div>
 		<div class="bars">
 			<canvas id="myChart"
 				style="display: block; width: 55px; height: 55px;"></canvas>
-			<canvas id="doughnutChart"
-				style="display: block; width: 15px; height: 15px;"></canvas>
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="box">
+						<%
+						LocalDate today = LocalDate.now();
+						LocalDate yesterday = today.minusDays(1);
+						LocalDate tomorrow = today.plusDays(1);
+						%>
+
+
+						<div class="calendar">
+							<div class="year">
+								<div class="previous">
+									<p id="prevYear"><%=yesterday.getYear()%></p>
+								</div>
+								<div class="current">
+									<p id="currentYear"><%=today.getYear()%></p>
+									<span>Year</span>
+								</div>
+								<div class="next">
+									<p id="nextYear"><%=tomorrow.getYear()%></p>
+								</div>
+							</div>
+							<div class="month">
+								<div class="previous">
+									<p id="prevMonth"><%=yesterday.getMonth()%></p>
+								</div>
+								<div class="current">
+									<p id="currentMonth"><%=today.getMonth()%></p>
+									<span>Month</span>
+								</div>
+								<div class="next">
+									<p id="nextMonth"><%=tomorrow.getMonth()%></p>
+								</div>
+							</div>
+							<div class="day">
+								<div class="previous">
+									<p id="prevDay"><%=yesterday.getDayOfMonth()%></p>
+								</div>
+								<div class="current">
+									<p id="currentDay"><%=today.getDayOfMonth()%></p>
+									<span>Day</span>
+								</div>
+								<div class="next">
+									<p id="nextDay"><%=tomorrow.getDayOfMonth()%></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
+
 		<div class="pendingReq">
+
+			<%
+			List<EmployeeLeaveDetails> eldArray = (List<EmployeeLeaveDetails>) request.getAttribute("leaveRequest");
+			if (!eldArray.isEmpty() && eldArray != null) {
+			%>
 			<h1 class="pendingReqTitle">Pending Leave Requests</h1>
 			<table>
 				<tr>
@@ -78,11 +135,6 @@
 					<th>Status</th>
 					<th></th>
 				</tr>
-				<%
-				List<EmployeeLeaveDetails> eldArray = (List<EmployeeLeaveDetails>) request.getAttribute("leaveRequest");
-				if (!eldArray.isEmpty() && eldArray != null) {
-				%>
-
 				<%
 				for (EmployeeLeaveDetails leaveDetail : eldArray) {
 				%>
@@ -124,7 +176,7 @@
 			data : {
 				labels : [ 'Casual', 'Sick', 'Earned' ],
 				datasets : [ {
-					label : '# of Votes',
+					label : 'Leave Balances',
 					data : [
 	<%=elb.getCasualLeaveBalance()%>
 		,

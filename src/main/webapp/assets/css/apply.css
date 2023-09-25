@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 
-form select, form input[type="date"], form textarea, form input[type="number"]
-	{
+form select, form input[type="date"], form textarea, form input[type="number"],
+	form input[type="text"] {
 	width: 50%;
 	padding: 10px;
 	margin-bottom: 20px;
@@ -43,4 +43,8 @@ main {
 #title {
 	margin-bottom: 3%;
 	margin-left: 5%;
+}
+
+#checkHere {
+	color: green;
 }

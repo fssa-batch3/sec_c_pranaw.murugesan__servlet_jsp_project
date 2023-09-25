@@ -33,6 +33,7 @@ public class ManageLeaveRequest extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		int employeeId = Integer.parseInt(request.getParameter("employeeId"));
 		String status = request.getParameter("status");
@@ -40,10 +41,10 @@ public class ManageLeaveRequest extends HttpServlet {
 		String leaveType = request.getParameter("leaveType");
 		int noOfDays = Integer.parseInt(request.getParameter("noOfDays"));
 		LeaveTypes leave = LeaveTypes.valueOf(leaveType);
-		EmployeeLeaveBalance elb = EmployeeLeaveDetailsService.getLeaveBalanceByEmployeeId(employeeId);
 		try {
+			EmployeeLeaveBalance elb = EmployeeLeaveDetailsService.getLeaveBalanceByEmployeeId(employeeId);
 			EmployeeLeaveDetailsService.updateLeaveRequest(status, id, comments, elb, employeeId, leave, noOfDays);
-		} catch (SQLException | DAOException | ValidatorException e) {
+		} catch (SQLException | DAOException e) {
 			e.printStackTrace();
 		}
 		response.sendRedirect("LeaveRequest");

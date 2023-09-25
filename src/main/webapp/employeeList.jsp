@@ -21,9 +21,15 @@
 	<main>
 		<%
 		String error = (String) request.getAttribute("error");
+		String success = (String) request.getAttribute("success");
 		if (error != null) {
 		%>
 		<h2 style="color: red;"><%=error%></h2>
+		<%
+		}
+		if (success != null) {
+		%>
+		<h2 style="color: green;"><%=success%></h2>
 		<%
 		}
 		%>
@@ -41,8 +47,9 @@
 						type="email" name="email" id="email" required> <label
 						for="password">Password:</label> <input type="password"
 						name="password" id="password" required> <label
-						for="manager">Manager:</label> <select name="manager" id="manager">
-						<option value="">Select Manager</option>
+						for="manager">Manager:</label> <input list="managerList"
+						name="manager" id="manager" required>
+					<datalist id="managerList">
 						<%
 						List<Employee> employeeList = (List<Employee>) request.getAttribute("EMPLOYEE_LIST");
 						List<Role> roleList = (List<Role>) request.getAttribute("ROLE_LIST");
@@ -56,7 +63,8 @@
 						}
 						}
 						%>
-					</select> <label for="role">Role:</label> <select name="role" id="role">
+					</datalist>
+					<label for="role">Role:</label> <select name="role" id="role">
 
 						<%
 						if (roleList != null) {
@@ -89,10 +97,11 @@
 			</thead>
 			<tbody>
 				<%
+				Integer sNo = (Integer) session.getAttribute("sNo");
+
 				if (employeeList != null) {
 					for (Employee e : employeeList) {
 				%>
-				<%!int sNo = 0;%>
 				<tr>
 					<td><%=++sNo%></td>
 					<td><%=e.getName()%></td>

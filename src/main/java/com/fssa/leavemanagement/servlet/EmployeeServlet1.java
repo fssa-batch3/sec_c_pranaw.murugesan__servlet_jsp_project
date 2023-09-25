@@ -46,7 +46,6 @@ public class EmployeeServlet1 extends HttpServlet {
 			List<Employee> employeeList = EmployeeService.getAllEmployee();
 
 			request.setAttribute("EMPLOYEE_LIST", employeeList);
-			request.setAttribute("sNo", 0);
 
 		} catch (DAOException | SQLException | InvalidRoleException e) {
 			e.printStackTrace();
@@ -88,10 +87,10 @@ public class EmployeeServlet1 extends HttpServlet {
 		employee.setEmail(email);
 		employee.setPassword(password);
 		employee.setManager(manager);
-
 		try {
+
 			EmployeeService.addEmployee(employee, role);
-			doGet(request, response);
+			request.setAttribute("success", "Added Successfully");
 		} catch (InvalidEmployeeException | DAOException | SQLException e) {
 			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();

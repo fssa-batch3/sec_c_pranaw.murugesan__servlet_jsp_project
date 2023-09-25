@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fssa.leavemanagement.exceptions.DAOException;
 import com.fssa.leavemanagement.model.EmployeeLeaveBalance;
 import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
 
@@ -26,8 +27,13 @@ public class LeaveBalance extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<EmployeeLeaveBalance> elb = EmployeeLeaveDetailsService.getAllLeaveBalance();
-		request.setAttribute("leaveBalance", elb);
+		List<EmployeeLeaveBalance> elb;
+		try {
+			elb = EmployeeLeaveDetailsService.getAllLeaveBalance();
+			request.setAttribute("leaveBalance", elb);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("adminLeaveBalance.jsp");
 		rd.forward(request, response);
 	}

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fssa.leavemanagement.exceptions.DAOException;
 import com.fssa.leavemanagement.exceptions.InvalidEmployeeException;
 import com.fssa.leavemanagement.model.EmployeeLeaveDetails;
 import com.fssa.leavemanagement.service.EmployeeLeaveDetailsService;
@@ -35,7 +36,7 @@ public class LeaveRequest extends HttpServlet {
 			request.setAttribute("leaveRequests", arr);
 			RequestDispatcher rd = request.getRequestDispatcher("leaveRequest.jsp");
 			rd.forward(request, response);
-		} catch (InvalidEmployeeException e) {
+		} catch (InvalidEmployeeException | DAOException e) {
 			e.printStackTrace();
 		}
 	}

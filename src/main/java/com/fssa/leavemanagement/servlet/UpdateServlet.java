@@ -48,7 +48,7 @@ public class UpdateServlet extends HttpServlet {
 
 		} catch (InvalidEmployeeException | DAOException | SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		doGet(request, response);
 	}
 
