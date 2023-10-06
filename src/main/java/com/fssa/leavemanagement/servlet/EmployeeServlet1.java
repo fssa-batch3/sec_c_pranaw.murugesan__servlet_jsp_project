@@ -39,15 +39,22 @@ public class EmployeeServlet1 extends HttpServlet {
 		RequestDispatcher rd = null;
 
 		String action = request.getParameter("action");
+		String employeeName = request.getParameter("searchname");
+		System.out.println(employeeName);
 
 		try {
 			List<Role> roles = RoleService.getAllRole();
 			request.setAttribute("ROLE_LIST", roles);
 			List<Employee> employeeList = EmployeeService.getAllEmployee();
+			if (employeeName != null) {
+				Employee e = EmployeeService.findEmployeeByName(employeeName);
+				employeeList.clear();
+				employeeList.add(e);
+			}
 
 			request.setAttribute("EMPLOYEE_LIST", employeeList);
 
-		} catch (DAOException | SQLException | InvalidRoleException e) {
+		} catch (DAOException | SQLException | InvalidRoleException | InvalidEmployeeException e) {
 			e.printStackTrace();
 		}
 
@@ -71,7 +78,6 @@ public class EmployeeServlet1 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 
 		/**
 		 * Writing in do post method to add employee
@@ -90,9 +96,10 @@ public class EmployeeServlet1 extends HttpServlet {
 		try {
 
 			EmployeeService.addEmployee(employee, role);
-			request.setAttribute("success", "Added Successfully");
+			request.setAttribute("successMsg", "Added Successfully");
+
 		} catch (InvalidEmployeeException | DAOException | SQLException e) {
-			request.setAttribute("error", e.getMessage());
+			request.setAttribute("errorMsg", e.getMessage());
 			e.printStackTrace();
 		}
 		doGet(request, response);

@@ -136,18 +136,46 @@ main {
 	display: flex;
 	flex-direction: column;
 }
+
+#loader {
+	display: block;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.7);
+}
+
+#loader span {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="employeeHeader.jsp"></jsp:include>
 	<main>
 		<h1>Leave Request</h1>
+		<!-- LOADING TEXT -->
+		<div id="loader">
+			<span>Loading...</span>
+		</div>
 		<div class="container">
 			<%
 			List<EmployeeLeaveDetails> leaveRequest = (List<EmployeeLeaveDetails>) request.getAttribute("leaveRequests");
 
 			if (leaveRequest != null) {
 				for (EmployeeLeaveDetails e : leaveRequest) {
+					if (e.getStatus().equals("PENDING")) {
+				System.out.println(e);
 			%>
 			<div class="leaveRequestsCard">
 				<h2><%=e.getName()%></h2>
@@ -158,6 +186,14 @@ main {
 			</div>
 
 			<%
+			} else {
+			%>
+			<div class="nothingContainer">
+				<img src="./assets/img/man.png"> <br>
+				<h1 class="nothing">Nothing Here</h1>
+			</div>
+			<%
+			}
 			}
 			} else {
 			%>
@@ -190,7 +226,7 @@ main {
 			</div>
 		</div>
 	</main>
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 	let employeeId =0;
 	let leaveType ="";
@@ -205,7 +241,8 @@ main {
 	    const popupNoOfDays = document.getElementById("popupNoOfDays");
 	    const popupStartDate = document.getElementById("popupStartDate");
 	    const popupEndDate = document.getElementById("popupEndDate");
-	    
+	    const loader = document.getElementById("loader");
+	    loader.style.display="none";
 	    // Add event listeners to "Accept" and "Reject" buttons
 	    const acceptButton = document.querySelector(".accept-button");
 	    const rejectButton = document.querySelector(".reject-button");
@@ -264,12 +301,15 @@ main {
 	        status: status,
 	        comments: comments,
 	    };
-
+	    loader.style.display="block";
 	    // Send a POST request using Axios
 	    axios.post("http://localhost:8080/leavemanagement-web/ManageLeaveRequest?id="+id+"&status="+status+"&comments="+comments+"&employeeId="+employeeId+"&leaveType="+leaveType+"&noOfDays="+noOfDays)
 	    .then(function (response) {
 	        // Handle the server's response here
+	        
 	        console.log("Request sent successfully");
+	        swal("Success!",`Succesfully ${status} the leave !!`, "success");
+	        window.location.reload();
 	    })
 	    .catch(function (error) {
 	        // Handle any errors that occurred during the request
@@ -279,5 +319,6 @@ main {
 
 
 </script>
+
 </body>
 </html>

@@ -34,11 +34,12 @@ public class DeleteRoleServlet extends HttpServlet {
 			Role role = new Role(name);
 			try {
 				RoleService.deleteRole(role);
+				request.setAttribute("successMsg", "Successfully Deleted Role");
 			} catch (InvalidRoleException | SQLException | DAOException e) {
 				e.printStackTrace();
 			}
 		}
-		response.sendRedirect("EmployeeRoleServlet1");
+		request.getRequestDispatcher("EmployeeRoleServlet1").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

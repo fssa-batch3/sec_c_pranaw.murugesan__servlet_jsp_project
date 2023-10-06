@@ -34,8 +34,8 @@ public class FindEmployeeByNameServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String employeeName = request.getParameter("name");
-
+		String employeeName = request.getParameter("searchname");
+		System.out.println(employeeName);
 		try {
 			Employee employee = EmployeeService.findEmployeeByName(employeeName);
 			if (employee != null) {

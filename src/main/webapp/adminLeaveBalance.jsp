@@ -14,6 +14,10 @@ a {
 	color: white;
 	text-decoration: none;
 }
+
+main {
+	padding-top: 100px;
+}
 </style>
 </head>
 <body>
@@ -31,12 +35,12 @@ a {
 				</tr>
 			</thead>
 			<tbody>
-				
-					<%
-					List<EmployeeLeaveBalance> elb = (List<EmployeeLeaveBalance>) request.getAttribute("leaveBalance");
-					if (elb != null) {
-						for (EmployeeLeaveBalance e : elb) {
-					%>
+
+				<%
+				List<EmployeeLeaveBalance> elb = (List<EmployeeLeaveBalance>) request.getAttribute("leaveBalance");
+				if (elb != null) {
+					for (EmployeeLeaveBalance e : elb) {
+				%>
 				<tr>
 					<td><%=e.getName()%></td>
 					<td><%=e.getEmail()%></td>
@@ -45,12 +49,9 @@ a {
 					<td><%=e.getEarnedLeaveBalance()%></td>
 				</tr>
 				<%
-					}
-					}
-					%>
-
-
-
+				}
+				}
+				%>
 			</tbody>
 		</table>
 	</main>

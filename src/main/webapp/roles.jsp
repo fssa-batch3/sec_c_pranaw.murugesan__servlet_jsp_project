@@ -307,7 +307,6 @@ a {
 			</tbody>
 		</table>
 	</main>
-	<footer> </footer>
 
 	<script>
 		//JavaScript to show and hide the add role popup
@@ -326,5 +325,6 @@ a {
 			});
 		});
 	</script>
+	<jsp:include page="./alertMsg.jsp"></jsp:include>
 </body>
 </html>

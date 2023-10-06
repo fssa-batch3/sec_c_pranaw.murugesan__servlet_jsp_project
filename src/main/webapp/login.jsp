@@ -18,19 +18,7 @@
 				id="user-type" name="user-type">
 				<option value="admin">Admin</option>
 				<option value="employee">Employee</option>
-			</select>
-			<%
-			String error = (String) request.getAttribute("error");
-			if (error != null) {
-			%>
-
-			<p class="error-msg"><%=error%></p>
-
-			<%
-			}
-			%>
-
-			<label for="email">Email:</label> <input type="email" id="email"
+			</select> <label for="email">Email:</label> <input type="email" id="email"
 				name="email" required> <label for="password">Password:</label>
 			<input type="password" id="password" name="password" required
 				pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
@@ -38,6 +26,7 @@
 			<button type="submit">Login</button>
 		</form>
 	</div>
+
 	<style>
 /* Your existing CSS styles can be used with slight modifications. */
 body {
@@ -97,11 +86,8 @@ button {
 button:hover {
 	background-color: #0056b3;
 }
-
-.error-msg {
-	color: red;
-}
 </style>
+	<jsp:include page="./alertMsg.jsp"></jsp:include>
 </body>
 
 </html>

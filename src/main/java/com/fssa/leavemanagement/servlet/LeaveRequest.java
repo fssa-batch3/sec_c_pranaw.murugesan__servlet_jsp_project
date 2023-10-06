@@ -34,7 +34,7 @@ public class LeaveRequest extends HttpServlet {
 		try {
 			List<EmployeeLeaveDetails> arr = EmployeeLeaveDetailsService.getLeaveRequestsByManagerEmail(email);
 			request.setAttribute("leaveRequests", arr);
-			RequestDispatcher rd = request.getRequestDispatcher("leaveRequest.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("./leaveRequest.jsp");
 			rd.forward(request, response);
 		} catch (InvalidEmployeeException | DAOException e) {
 			e.printStackTrace();

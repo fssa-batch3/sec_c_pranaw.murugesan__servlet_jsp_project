@@ -26,7 +26,7 @@ public class DeleteEmployeeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("./employeeList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("EmployeeServlet1");
 		rd.forward(request, response);
 	}
 
@@ -35,9 +35,10 @@ public class DeleteEmployeeServlet extends HttpServlet {
 		String email = (String) request.getParameter("email");
 		try {
 			EmployeeService.deleteEmployee(email);
+
 			doGet(request, response);
 		} catch (SQLException | DAOException e) {
-			e.printStackTrace();
+			request.setAttribute("errorMsg", e.getMessage());
 		}
 		doGet(request, response);
 	}

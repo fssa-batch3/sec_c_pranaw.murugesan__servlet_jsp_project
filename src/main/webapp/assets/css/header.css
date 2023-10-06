@@ -10,7 +10,6 @@ body {
 	font-family: "Roboto", sans-serif;
 	background-color: #f9f7f7;
 	overflow-x: hidden;
-	font-family: "Roboto", sans-serif;
 }
 
 #webTitle {
@@ -18,12 +17,15 @@ body {
 }
 /* Header Styles */
 header {
+	position: fixed;
 	display: flex;
 	justify-content: space-between;
 	background-color: #007BFF;
 	color: #fff;
 	padding: 20px 0;
 	text-align: center;
+	width: 100%;
+	z-index: 100;
 }
 
 header h1 {
@@ -38,7 +40,6 @@ header h1 {
 	cursor: pointer;
 	margin-right: 30px;
 	font-size: larger;
-	border: none;
 }
 
 header .signout:hover {
@@ -53,14 +54,14 @@ aside {
 	color: #fff;
 	width: 15%; /* Adjust the width as needed */
 	position: fixed; /* Fixed position to stay in view while scrolling */
-	top: 9%; /* Position it at the top */
+	top: 0; /* Position it at the top */
 	left: 0; /* Position it on the left */
 }
 
 aside ul {
 	list-style-type: none;
 	padding: 0;
-	margin: 0; /* Remove default margin */
+	margin-top: 100px;
 }
 
 aside li {
@@ -79,6 +80,8 @@ aside button {
 	transition: background-color 0.3s ease;
 	font-size: 16px;
 	margin-top: 20px;
+	text-align: left;
+	padding-left: 30px;
 }
 
 aside button:hover {
@@ -91,6 +94,6 @@ a {
 }
 
 main {
-	padding-top: 1%;
+	padding-top: 7%;
 	margin-left: 15%;
 }

@@ -28,6 +28,7 @@ public class ManageLeaveRequest extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getRequestDispatcher("LeaveRequest").forward(request, response);
 
 	}
 
@@ -39,7 +40,7 @@ public class ManageLeaveRequest extends HttpServlet {
 		String status = request.getParameter("status");
 		String comments = request.getParameter("comments");
 		String leaveType = request.getParameter("leaveType");
-		int noOfDays = Integer.parseInt(request.getParameter("noOfDays"));
+		double noOfDays = Double.parseDouble(request.getParameter("noOfDays"));
 		LeaveTypes leave = LeaveTypes.valueOf(leaveType);
 		try {
 			EmployeeLeaveBalance elb = EmployeeLeaveDetailsService.getLeaveBalanceByEmployeeId(employeeId);
@@ -47,7 +48,8 @@ public class ManageLeaveRequest extends HttpServlet {
 		} catch (SQLException | DAOException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("LeaveRequest");
+		request.setAttribute("successMsg", "Succesfully " + status + " the leave !!");
+
 		doGet(request, response);
 	}
 

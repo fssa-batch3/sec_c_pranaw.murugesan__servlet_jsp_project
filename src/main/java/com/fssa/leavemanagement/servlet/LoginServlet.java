@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		String enteredPassword = request.getParameter("password");
 		String enteredEmail = request.getParameter("email");
 		String userType = request.getParameter("user-type");
-		final String error = "error";
+		final String error = "errorMsg";
 		final String invalidUser = "Invalid email or password";
 		final String loginRedirection = "login.jsp";
 		Employee user = null;
@@ -58,10 +58,13 @@ public class LoginServlet extends HttpServlet {
 					if (hashedEnteredPassword.equals(user.getPassword())) {
 						// Passwords match; user is authenticated
 						session.setAttribute("loggedInEmail", enteredEmail);
-						response.sendRedirect("Dashboard");
+						request.setAttribute("successMsg", "Successfully Logged in !!");
+						request.setAttribute("path", "Dashboard");
+						request.getRequestDispatcher("./login.jsp").forward(request, response);
 					} else {
 						// Passwords do not match; authentication failed
 						request.setAttribute(error, invalidUser);
+						request.setAttribute("path", loginRedirection);
 						request.getRequestDispatcher(loginRedirection).forward(request, response);
 					}
 				} catch (InvalidEmployeeException e) {
@@ -71,6 +74,7 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				// User not found in the database; authentication failed
 				request.setAttribute(error, invalidUser);
+				request.setAttribute("path", loginRedirection);
 				request.getRequestDispatcher(loginRedirection).forward(request, response);
 			}
 		} else {
@@ -80,10 +84,12 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("loggedInEmail", enteredEmail);
 				int sNo = 0;
 				session.setAttribute("sNo", sNo);
-				RequestDispatcher rd = request.getRequestDispatcher("EmployeeServlet1");
-				rd.forward(request, response);
+				request.setAttribute("successMsg", "Successfully Logged in !!");
+				request.setAttribute("path", "EmployeeServlet1");
+				request.getRequestDispatcher(loginRedirection).forward(request, response);
 			} else {
 				request.setAttribute(error, invalidUser);
+				request.setAttribute("path", loginRedirection);
 				request.getRequestDispatcher(loginRedirection).forward(request, response);
 			}
 		}

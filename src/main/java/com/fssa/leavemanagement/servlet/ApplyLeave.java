@@ -48,7 +48,6 @@ public class ApplyLeave extends HttpServlet {
 		String noOfDays = (String) request.getParameter("noOfDays");
 		double days = Double.parseDouble(noOfDays);
 
-
 		EmployeeLeaveDetails eld = new EmployeeLeaveDetails();
 		try {
 			eld.setEmployeeId(EmployeeDao.getEmployeeIdByEmail(email));
@@ -63,7 +62,7 @@ public class ApplyLeave extends HttpServlet {
 			request.setAttribute("successMsg", "Applied Successfully");
 
 		} catch (SQLException | DAOException | ValidatorException e) {
-			request.setAttribute("error", e.getMessage());
+			request.setAttribute("errorMsg", e.getMessage());
 			e.printStackTrace();
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("apply.jsp");

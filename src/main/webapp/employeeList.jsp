@@ -19,24 +19,19 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
-		<%
-		String error = (String) request.getAttribute("error");
-		String success = (String) request.getAttribute("success");
-		if (error != null) {
-		%>
-		<h2 style="color: red;"><%=error%></h2>
-		<%
-		}
-		if (success != null) {
-		%>
-		<h2 style="color: green;"><%=success%></h2>
-		<%
-		}
-		%>
+
 		<div class="addEmployeeDiv">
-			<h1 class="titleList">Employee List</h1>
-			<button class="add-button" id="addEmployeeButton">Add
-				Employee</button>
+			<div>
+				<h1 class="titleList">Employee List</h1>
+			</div>
+			<div style="display: flex; padding-right: 10px" class="secDiv">
+				<form>
+					<input type="search" name="searchname" id="search"
+						placeholder="Search names">
+				</form>
+				<button class="add-button" id="addEmployeeButton">Add
+					Employee</button>
+			</div>
 		</div>
 
 		<div id="addPopupContainer">
@@ -44,7 +39,9 @@
 				<form action="EmployeeServlet1" method="post">
 					<label for="name">Name:</label> <input type="text" name="name"
 						id="name" required> <label for="email">Email:</label> <input
-						type="email" name="email" id="email" required> <label
+						type="email" name="email" id="email" required
+						pattern="^[A-Za-z0-9+_.-]+@([A-Za-z0-9+_.-]+\\.)?freshworks\\.com$"
+						title="email should be freshworks email"> <label
 						for="password">Password:</label> <input type="password"
 						name="password" id="password" required> <label
 						for="manager">Manager:</label> <input list="managerList"
@@ -190,9 +187,6 @@
 					<button class="add-button" onclick="setFormUpdate()">
 						Update</button>
 					<button onclick="setFormDelete()" class="add-button">Delete</button>
-
-
-
 				</form>
 				<button class="cancel-button" id="closeEditPopup">Close</button>
 			</div>
@@ -208,61 +202,20 @@
 	</main>
 	<footer> </footer>
 
+	<script src="./assets/js/employeeList.js"></script>
+
+	<%
+	String error = (String) request.getAttribute("errorMsg");
+	if (error != null) {
+	%>
 	<script>
-		// Function to open the Add Employee popup
-		function openAddEmployeePopup() {
-			const addPopupContainer = document
-					.getElementById("addPopupContainer");
-			addPopupContainer.style.display = "flex";
-		}
-
-		// Function to close the Add Employee popup
-		function closeAddEmployeePopup() {
-			const addPopupContainer = document
-					.getElementById("addPopupContainer");
-			addPopupContainer.style.display = "none";
-		}
-
-		// Function to close the Edit popup
-		function closeEditPopup() {
-			const editPopup = document.querySelector(".edit-popup");
-			editPopup.style.display = "none";
-		}
-
-		// Event listeners
-		const addEmployeeButton = document.getElementById("addEmployeeButton");
-		const closePopupButton = document.getElementById("closePopup"); // Use the correct ID
-		const closeEditPopupButton = document.getElementById("closeEditPopup");
-
-		if (addEmployeeButton) {
-			addEmployeeButton.addEventListener("click", openAddEmployeePopup);
-		}
-
-		if (closePopupButton) { // Use the correct button variable
-			closePopupButton.addEventListener("click", closeAddEmployeePopup);
-		}
-
-		if (closeEditPopupButton) {
-			closeEditPopupButton.addEventListener("click", closeEditPopup);
-		}
-
-		const updateForm = document.getElementById("updateForm");
-		function setFormUpdate() {
-			const email = document.getElementById("emailUpdate").value;
-			const name = document.getElementById("nameUpdate").value;
-			const manager = document.getElementById("managerUpdate").value;
-			const password = document.getElementById("passwordUpdate").value;
-
-			updateForm.action = `UpdateServlet?email=${email}&name=${name}&manager=${manager}&password=${password}`;
-		}
-		function setFormDelete() {
-			const email = document.getElementById("emailUpdate").value;
-			updateForm.action = `DeleteServlet?email=${email}`;
-		}
+	
+	swal("Failed !","<%=error%>", "error");
 	</script>
 
-
-
-
+	<%
+	}
+	%>
+	<jsp:include page="./alertMsg.jsp"></jsp:include>
 </body>
 </html>

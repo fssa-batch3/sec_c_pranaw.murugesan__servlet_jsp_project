@@ -49,7 +49,9 @@ public class EmployeeRoleServlet1 extends HttpServlet {
 			Role role = new Role(name);
 			try {
 				RoleService.addRole(role);
+				request.setAttribute("successMsg", "Successfully Added Role !!");
 			} catch (InvalidRoleException | SQLException | DAOException e) {
+				request.setAttribute("errorMsg", e.getMessage());
 				e.printStackTrace();
 			}
 		}
