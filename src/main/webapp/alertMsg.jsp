@@ -4,7 +4,6 @@
 String successMsg = (String) request.getAttribute("successMsg");
 String path = (String) request.getAttribute("path");
 
-System.out.println("Successmsg : " + successMsg + " errormsg :" + errorMsg + " Path :" + path);
 
 if (errorMsg != null) {%>
 		console.log("<%=errorMsg%>");

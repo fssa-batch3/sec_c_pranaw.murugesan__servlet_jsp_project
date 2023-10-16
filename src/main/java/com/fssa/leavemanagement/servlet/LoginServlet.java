@@ -79,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 			}
 		} else {
 
-			if ("admin@FRESH2023".equals(enteredPassword) && "admin@freshworks.com".equals(enteredEmail)) {
+			if (System.getenv("ADMIN_PASSWORD").equals(enteredPassword) && System.getenv("ADMIN_EMAIL").equals(enteredEmail)) {
 
 				session.setAttribute("loggedInEmail", enteredEmail);
 				int sNo = 0;

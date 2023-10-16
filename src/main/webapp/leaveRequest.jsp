@@ -175,7 +175,7 @@ main {
 			if (leaveRequest != null) {
 				for (EmployeeLeaveDetails e : leaveRequest) {
 					if (e.getStatus().equals("PENDING")) {
-				System.out.println(e);
+				
 			%>
 			<div class="leaveRequestsCard">
 				<h2><%=e.getName()%></h2>

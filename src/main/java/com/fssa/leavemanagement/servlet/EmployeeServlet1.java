@@ -1,7 +1,6 @@
 package com.fssa.leavemanagement.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import com.fssa.leavemanagement.model.Employee;
 import com.fssa.leavemanagement.model.Role;
 import com.fssa.leavemanagement.service.EmployeeService;
 import com.fssa.leavemanagement.service.RoleService;
+import com.fssa.leavemanagement.util.Logger;
 
 /**
  * Servlet implementation class EmployeeServlet1
@@ -40,7 +40,7 @@ public class EmployeeServlet1 extends HttpServlet {
 
 		String action = request.getParameter("action");
 		String employeeName = request.getParameter("searchname");
-		System.out.println(employeeName);
+		Logger.info(employeeName);
 
 		try {
 			List<Role> roles = RoleService.getAllRole();
