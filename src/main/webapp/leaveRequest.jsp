@@ -186,14 +186,9 @@ main {
 			</div>
 
 			<%
-			} else {
-			%>
-			<div class="nothingContainer">
-				<img src="./assets/img/man.png"> <br>
-				<h1 class="nothing">Nothing Here</h1>
-			</div>
-			<%
 			}
+			%>
+			<%
 			}
 			} else {
 			%>
