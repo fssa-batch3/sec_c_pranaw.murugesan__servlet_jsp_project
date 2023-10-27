@@ -3,7 +3,6 @@ package com.fssa.leavemanagement.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		
 		String enteredPassword = request.getParameter("password");
 		String enteredEmail = request.getParameter("email");
 		String userType = request.getParameter("user-type");
@@ -57,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 					hashedEnteredPassword = EmployeeDao.hashPassword(enteredPassword);
 					if (hashedEnteredPassword.equals(user.getPassword())) {
 						// Passwords match; user is authenticated
+						HttpSession session = request.getSession();
 						session.setAttribute("loggedInEmail", enteredEmail);
 						request.setAttribute("successMsg", "Successfully Logged in !!");
 						request.setAttribute("path", "Dashboard");
@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 
 			if (System.getenv("ADMIN_PASSWORD").equals(enteredPassword) && System.getenv("ADMIN_EMAIL").equals(enteredEmail)) {
-
+				HttpSession session = request.getSession();
 				session.setAttribute("loggedInEmail", enteredEmail);
 				int sNo = 0;
 				session.setAttribute("sNo", sNo);

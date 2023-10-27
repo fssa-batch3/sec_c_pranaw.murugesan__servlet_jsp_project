@@ -45,11 +45,13 @@ public class UpdateServlet extends HttpServlet {
 
 		try {
 			EmployeeService.updateEmployee(employee);
+			request.setAttribute("successMsg", "Successfully Updated !!");
+			request.getRequestDispatcher("EmployeeServlet1").forward(request, response);
 
 		} catch (InvalidEmployeeException | DAOException | SQLException e) {
-			e.printStackTrace();
+			request.setAttribute("errorMsg", e.getMessage());
+			request.getRequestDispatcher("EmployeeServlet1").forward(request, response);
 		}
-		doGet(request, response);
 	}
 
 }
